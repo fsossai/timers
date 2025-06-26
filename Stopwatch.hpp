@@ -21,7 +21,13 @@ public:
   void start() noexcept { stopwatch_start(&sw); }
   void stop() noexcept { stopwatch_stop(&sw); }
   void reset() noexcept { stopwatch_reset(&sw); }
-  void print() noexcept { stopwatch_print(&sw); }
+  void print(bool stats = false) noexcept {
+    if (stats) {
+      stopwatch_print_stats(&sw);
+    } else {
+      stopwatch_print(&sw);
+    }
+  }
 
   double milliseconds() const noexcept { return stopwatch_milliseconds(&sw); }
   double seconds() const noexcept { return stopwatch_seconds(&sw); }

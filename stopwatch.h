@@ -36,12 +36,13 @@ static inline double stopwatch_seconds(const stopwatch_t *sw) {
 
 static inline void stopwatch_print(const stopwatch_t *sw) {
   double ms = stopwatch_milliseconds(sw);
-  if (sw->laps == 1) {
-    printf("[stopwatch] %s: %.3f ms (laps: 1)\n", sw->name, ms);
-  } else {
-    printf("[stopwatch] %s: %.3f ms (avg: %.3f ms, laps: %li)\n", sw->name, ms,
-           ms / sw->laps, sw->laps);
-  }
+  printf("[stopwatch] %s: %.3f ms\n", sw->name, ms);
+}
+
+static inline void stopwatch_print_stats(const stopwatch_t *sw) {
+  double ms = stopwatch_milliseconds(sw);
+  printf("[stopwatch] %s: %.3f ms (avg: %.3f ms, laps: %li)\n", sw->name, ms,
+         ms / sw->laps, sw->laps);
 }
 
 static inline void stopwatch_start(stopwatch_t *sw) {
