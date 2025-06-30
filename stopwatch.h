@@ -27,22 +27,22 @@ static inline void stopwatch_init(stopwatch_t *sw, const char *name) {
 }
 
 static inline double stopwatch_milliseconds(const stopwatch_t *sw) {
-  return sw->elapsed_ms;
+  return sw->elapsed_ms * 1000.0;
 }
 
 static inline double stopwatch_seconds(const stopwatch_t *sw) {
-  return stopwatch_milliseconds(sw) / 1000.0;
+  return stopwatch_milliseconds(sw);
 }
 
 static inline void stopwatch_print(const stopwatch_t *sw) {
-  double ms = stopwatch_milliseconds(sw);
-  printf("[stopwatch] %s: %.3f ms\n", sw->name, ms);
+  double sec = stopwatch_seconds(sw);
+  printf("[stopwatch] %s: %.3f s\n", sw->name, sec);
 }
 
 static inline void stopwatch_print_stats(const stopwatch_t *sw) {
-  double ms = stopwatch_milliseconds(sw);
-  printf("[stopwatch] %s: %.3f ms (avg: %.3f ms, laps: %li)\n", sw->name, ms,
-         ms / sw->laps, sw->laps);
+  double sec = stopwatch_milliseconds(sw);
+  printf("[stopwatch] %s: %.3f s (avg: %.3f s, laps: %li)\n", sw->name, sec,
+         sec / sw->laps, sw->laps);
 }
 
 static inline void stopwatch_start(stopwatch_t *sw) {

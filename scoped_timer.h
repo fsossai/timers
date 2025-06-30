@@ -24,9 +24,9 @@ static inline void scoped_timer_stop(scoped_timer_t *st) {
   }
   struct timespec end;
   clock_gettime(CLOCK_MONOTONIC, &end);
-  double elapsed_ms = (end.tv_sec - st->start_time.tv_sec) * 1000.0 +
-                      (end.tv_nsec - st->start_time.tv_nsec) / 1e6;
-  printf("[scoped_timer] %s: %.3f ms\n", st->name ? st->name : "(unnamed)",
+  double elapsed_ms = (end.tv_sec - st->start_time.tv_sec) * 1.0 +
+                      (end.tv_nsec - st->start_time.tv_nsec) / 1e9;
+  printf("[scoped_timer] %s: %.3f s\n", st->name ? st->name : "(unnamed)",
          elapsed_ms);
   st->active = false;
 }
