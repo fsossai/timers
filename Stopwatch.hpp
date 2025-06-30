@@ -7,14 +7,19 @@
 
 class Stopwatch {
 public:
-  explicit Stopwatch(const char *name, bool auto_display = true) noexcept
-      : auto_display(auto_display) {
+  explicit Stopwatch(const char *name, bool stats = false,
+                     bool auto_display = true) noexcept
+      : stats(stats), auto_display(auto_display) {
     stopwatch_init(&sw, name);
   }
 
   ~Stopwatch() {
     if (auto_display) {
-      stopwatch_print(&sw);
+      if (stats) {
+        stopwatch_print_stats(&sw);
+      } else {
+        stopwatch_print(&sw);
+      }
     }
   }
 
@@ -38,6 +43,16 @@ public:
 private:
   stopwatch_t sw;
   bool auto_display;
+  bool stats;
+};
+
+class StopwatchScope {
+public:
+  explicit StopwatchScope(Stopwatch &sw) : sw(sw) { sw.start(); }
+  ~StopwatchScope() { sw.stop(); }
+
+private:
+  Stopwatch &sw;
 };
 
 #endif // STOPWATCH_HPP
