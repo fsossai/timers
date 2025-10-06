@@ -9,7 +9,7 @@ class Stopwatch {
 public:
   explicit Stopwatch(const char *name, bool stats = true,
                      bool auto_display = true) noexcept
-      : stats(stats), auto_display(auto_display) {
+      : auto_display(auto_display), stats(stats) {
     stopwatch_init(&sw, name);
   }
 
